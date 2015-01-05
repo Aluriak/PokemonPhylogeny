@@ -40,19 +40,19 @@ class DNAMaker(object):
     """
 
 # CONSTRUCTOR #################################################################
-    def __init__(self, generations = [1], final_only = False, dna_size = NB_MOVES):
+    def __init__(self, generations = [1], final_only = False):
         self.final_only = final_only
         self.generations = generations
-        self.dna_size = int(dna_size)
 
 
 # PUBLIC METHODS ##############################################################
     def saveDNA(self, filename):
         # Save dnas in a file
         print("Saving in " + filename + "… ", end="")
-        with open(filename, "wb") as fdna:
-            pickle.dump(self.dnas, fdna)
+        with open(filename, "wb") as fpok:
+            pickle.dump(self.pokemons, fpok)
         print("OK")
+
 
     def parseDNA(self):
         self.dnas = {}
