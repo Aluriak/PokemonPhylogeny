@@ -19,7 +19,8 @@ Default :
 import sys, re, pickle, urllib
 from collections import defaultdict
 from bs4 import BeautifulSoup as BS
-from common import NB_MOVES, FILE_POKEMON_DNA, URL_POKEBIP_POKEDEX, URL_POKEBIP_SEARCH_POKEDEX, getHTMLOf
+from common import FILE_POKEMON_DNA, URL_POKEBIP_POKEDEX, URL_POKEBIP_SEARCH_POKEDEX, getHTMLOf
+from pokemon import Pokemon
 
 
 
@@ -65,8 +66,8 @@ class DNAMaker(object):
     def __doDNA(self):
         # For each pokemon, deduce DNA
         print("DNA computation… ", end="")
-        for pokemon, knowed_moves in self.pokemons.items():
-            self.dnas[pokemon] = "".join(['1' if _ in knowed_moves else '0' for _ in range(1, self.dna_size)])
+        for pokemon in self.pokemons:
+            pokemon.doDNA() 
         print("OK")
          
 
@@ -82,7 +83,6 @@ class DNAMaker(object):
         bs = BS(getHTMLOf(self.pokedex_pokemon_url))
         # get url of all <a> tag in html page
         self.pokemon_urls = [str(a['href']) for a in bs.find_all("a", href=True) if re.compile("pokedex_5G_fiche").match(a['href'])]
-
         print(len(self.pokemon_urls), " Pokemon find !")
 
 
@@ -91,7 +91,7 @@ class DNAMaker(object):
         regex_move_numbr = re.compile(move_url + "[0-9]*")
 
         # Final data container
-        self.pokemons = defaultdict(list)
+        self.pokemons = []#defaultdict(list)
         self.unknow_pokemons = [] 
 
         # For each url, get pokemon name and moves
@@ -101,16 +101,20 @@ class DNAMaker(object):
             end   = pokemon_url.find('.html', start)
             pokemon_name = pokemon_url[start:end]
             print(pokemon_name + "… ", end="")
-            # get all moves pokemon can learn
+            pokemon = Pokemon(pokemon_name)
+            # get data about this pokémon
             try:
                 bs = BS(getHTMLOf(URL_POKEBIP_POKEDEX + pokemon_url.replace(' ', '%20')))
+                # get the moves that can be learn
                 for a in bs.find_all('a'):
                     href = a.get('href', "")
                     regex_result = re.findall(regex_move_numbr, href) # find tags where a move url is
                     if len(regex_result) == 1:
                         move_id = int(regex_result[0][len(move_url):]) # get only the move id
                         # add move to knowed moves for current pokemon
-                        self.pokemons[pokemon_name].append(move_id) 
+                        pokemon.appendMove(move_id) 
+                # the end
+                self.pokemons.append(pokemon)
                 print("OK")
             except urllib.error.HTTPError:
                 self.unknow_pokemons.append(pokemon_url)
