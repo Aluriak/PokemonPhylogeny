@@ -85,10 +85,11 @@ class DNAMaker(object):
         self.pokemon_urls = [str(a['href']) for a in bs.find_all("a", href=True) if re.compile("pokedex_5G_fiche").match(a['href'])]
         print(len(self.pokemon_urls), " Pokemon find !")
 
-
-        # Pokemon treatment
-        move_url = "pokedex_5G_attaque"
-        regex_move_numbr = re.compile(move_url + "[0-9]*")
+        # Pokebip specific detecters
+        move_url = r"pokedex_5G_attaque"
+        type_url = r"images\/gen5_types\/"
+        regex_move_numbr = re.compile(move_url + r"[0-9]*")
+        regex_types      = re.compile(type_url + r"([0-9]{1,2})\.png") 
 
         # Final data container
         self.pokemons = []#defaultdict(list)
@@ -113,6 +114,13 @@ class DNAMaker(object):
                         move_id = int(regex_result[0][len(move_url):]) # get only the move id
                         # add move to knowed moves for current pokemon
                         pokemon.appendMove(move_id) 
+                # get the types: the second <tr> contain many unwanted <img>, but the regex can filter them
+                for img in bs.table.find_all('tr')[1].find_all('img'):
+                    #print(img.get('src', ''))
+                    regex_result = regex_types.match(img.get('src', ''))
+                    if regex_result is not None:
+                        #print('RESULT', regex_result.group(1), 'RESULT')
+                        pokemon.appendType(regex_result.group(1))
                 # the end
                 self.pokemons.append(pokemon)
                 print("OK")
