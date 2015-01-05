@@ -126,7 +126,7 @@ class DNAMaker(object):
 
 # PREDICATS ###################################################################
     def haveUnknowPokemon(self):
-        return len(self.unknow_pokemons) == 0
+        return len(self.unknow_pokemons) > 0
 
 # ACCESSORS ###################################################################
 # CONVERSION ##################################################################
