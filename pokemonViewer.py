@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #########################
-#       DNAVIEWER            
+#       POKEMON VIEWER  #
 #########################
 
 
@@ -9,7 +9,7 @@
 #########################
 import pickle
 from common.pokemon import Pokemon
-from common.common import FILE_POKEMON_DNA
+from common.common import FILE_POKEMON
 
 
 
@@ -37,7 +37,7 @@ from common.common import FILE_POKEMON_DNA
 # FUNCTIONS             #
 #########################
 if __name__ == '__main__':
-    with open(FILE_POKEMON_DNA, "rb") as fpok:
+    with open(FILE_POKEMON, "rb") as fpok:
         pokemons = pickle.load(fpok)
     for pokemon in pokemons:
         print(pokemon)

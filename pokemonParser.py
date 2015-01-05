@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 #########################
-#       MAKEDNA         #
+#       POKEMOM PARSER  #
 #########################
 """
-usage: makeDNA [generation_id,…]
+usage: PokemonParser [generation_id,…]
 generation_id is an integer, > 0 and < 6
 Example :
-    makeDNA 1 3 5
+    PokemonParser 1 3 5
     => get data for generation 1 3 and 5
 Default :
-    makeDNA 1
+    PokemonParser 1
 """
 
 
@@ -19,7 +19,7 @@ Default :
 import sys, re, pickle, urllib
 from collections import defaultdict
 from bs4 import BeautifulSoup as BS
-from common.common import FILE_POKEMON_DNA, URL_POKEBIP_POKEDEX, URL_POKEBIP_SEARCH_POKEDEX, getHTMLOf
+from common.common import FILE_POKEMON, URL_POKEBIP_POKEDEX, URL_POKEBIP_SEARCH_POKEDEX, getHTMLOf
 from common.pokemon import Pokemon
 
 
@@ -35,7 +35,7 @@ from common.pokemon import Pokemon
 #########################
 # CLASS                 #
 #########################
-class DNAMaker(object):
+class PokemonParser(object):
     """
     """
 
@@ -46,28 +46,33 @@ class DNAMaker(object):
 
 
 # PUBLIC METHODS ##############################################################
-    def saveDNA(self, filename):
+    def savePokemons(self, filename = None):
+        assert(self.pokemon is not None)
         # Save dnas in a file
+        if filename is None: # creat automatic name
+            filename = ('pokemon_' +
+                ''.join([str(_) for _ in self.generations]) + 
+                'f' if self.final_only else '')
         print("Saving in " + filename + "… ", end="")
         with open(filename, "wb") as fpok:
             pickle.dump(self.pokemons, fpok)
         print("OK")
 
 
-    def parseDNA(self):
-        self.dnas = {}
+    def parsePokemons(self):
+        self.pokemons = {}
         self.__operateParsing()
-        self.__doDNA()
+        self.__doPokemon()
         return self.dnas
 
 
 
 # PRIVATE METHODS #############################################################
-    def __doDNA(self):
-        # For each pokemon, deduce DNA
-        print("DNA computation… ", end="")
+    def __doPokemon(self):
+        # For each pokemon, deduce Pokemon
+        print("Pokemon computation… ", end="")
         for pokemon in self.pokemons:
-            pokemon.doDNA() 
+            pokemon.doPokemon() 
         print("OK")
          
 
@@ -165,17 +170,17 @@ if __name__ == '__main__':
 
     
     # Generate parser + do parsing
-    maker = DNAMaker(generation, only_final_evolution)
-    maker.parseDNA()
-    maker.saveDNA(FILE_POKEMON_DNA)
+    parser = PokemonParser(generation, only_final_evolution)
+    parser.parsePokemons()
+    parser.savePokemon(FILE_POKEMON)
 
             
 
 
     # Print unknow pokemons
-    if maker.haveUnknowPokemon():
+    if parser.haveUnknowPokemon():
         print("Unknow Pokémons :")
-        print(", ".join(maker.unknow_pokemons))
+        print(", ".join(parser.unknow_pokemons))
     else:
         print("All asked pokemons are parsed.")
 

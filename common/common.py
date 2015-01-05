@@ -16,7 +16,7 @@ import sys
 #########################
 # PRE-DECLARATIONS      #
 #########################
-FILE_POKEMON_DNA = "pokemon_dnas.dat"
+FILE_POKEMON = "pokemons.dat"
 URL_POKEBIP_POKEDEX = "http://www.pokebip.com/pokemon/pokedex/"
 URL_POKEBIP_SEARCH_POKEDEX = 'http://www.pokebip.com/pokedex/index.php?phppage=gen5/liste&poke_tri=1'
 
