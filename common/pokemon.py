@@ -49,6 +49,12 @@ class Pokemon(object):
     }
 
 
+    def hamming(iterable_a, iterable_b):
+        """Return distance between given iterables"""
+        # get length of the list that contain 0 if and only if dnas of iterable_a and iterable_b are differents.
+        return len([0 for a, b in zip(iterable_a.dna, iterable_b.dna) if a != b])
+
+
 # CONSTRUCTOR #################################################################
     def __init__(self, name):
         self.name  = name
@@ -68,7 +74,10 @@ class Pokemon(object):
     def doDNA(self):
         """generate self.dna from knowed moves"""
         self.dna = "".join(['1' if _ in self.moves else '0' for _ in range(Pokemon.MOVES_COUNT)])
-
+    
+    def distTo(self, othr, distMethod=hamming):
+        """Return distance between self and othr Pokémon, based on distMethod"""
+        return distMethod(self, othr)
 
 # PRIVATE METHODS #############################################################
 # PREDICATS ###################################################################
