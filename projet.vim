@@ -1,5 +1,11 @@
-e       dnaMaker.py
-vsp     common.py
+e       parsing/dnaMaker.py
+vsp     parsing/dnaViewer.py
 
-tabnew  dnaViewer.py
-vsp     pokemon.py
+"tabnew  clustering/.py
+"vsp     clustering/.py
+
+"tabnew  printing/.py
+"vsp     printing/.py
+
+tabnew  common/common.py
+vsp     common/pokemon.py

@@ -19,8 +19,8 @@ Default :
 import sys, re, pickle, urllib
 from collections import defaultdict
 from bs4 import BeautifulSoup as BS
-from common import FILE_POKEMON_DNA, URL_POKEBIP_POKEDEX, URL_POKEBIP_SEARCH_POKEDEX, getHTMLOf
-from pokemon import Pokemon
+from common.common import FILE_POKEMON_DNA, URL_POKEBIP_POKEDEX, URL_POKEBIP_SEARCH_POKEDEX, getHTMLOf
+from common.pokemon import Pokemon
 
 
 

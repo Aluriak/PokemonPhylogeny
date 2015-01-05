@@ -8,8 +8,8 @@
 # IMPORTS               #
 #########################
 import pickle
-from pokemon import Pokemon
-from common import FILE_POKEMON_DNA
+from common.pokemon import Pokemon
+from common.common import FILE_POKEMON_DNA
 
 
 
