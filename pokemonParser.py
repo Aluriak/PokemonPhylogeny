@@ -43,11 +43,12 @@ class PokemonParser(object):
     def __init__(self, generations = [1], final_only = False):
         self.final_only = final_only
         self.generations = generations
+        self.pokemons = None
 
 
 # PUBLIC METHODS ##############################################################
     def savePokemons(self, filename = None):
-        assert(self.pokemon is not None)
+        assert(self.pokemons is not None)
         # Save dnas in a file
         if filename is None: # creat automatic name
             filename = ('pokemon_' +
@@ -62,17 +63,17 @@ class PokemonParser(object):
     def parsePokemons(self):
         self.pokemons = {}
         self.__operateParsing()
-        self.__doPokemon()
-        return self.dnas
+        self.__doDNA()
+        return self.pokemons
 
 
 
 # PRIVATE METHODS #############################################################
-    def __doPokemon(self):
-        # For each pokemon, deduce Pokemon
-        print("Pokemon computation… ", end="")
+    def __doDNA(self):
+        # For each pokemon, deduce DNA
+        print("DNA computation… ", end="")
         for pokemon in self.pokemons:
-            pokemon.doPokemon() 
+            pokemon.doDNA() 
         print("OK")
          
 
@@ -172,7 +173,7 @@ if __name__ == '__main__':
     # Generate parser + do parsing
     parser = PokemonParser(generation, only_final_evolution)
     parser.parsePokemons()
-    parser.savePokemon(FILE_POKEMON)
+    parser.savePokemons(FILE_POKEMON)
 
             
 
