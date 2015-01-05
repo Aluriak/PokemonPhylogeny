@@ -69,7 +69,7 @@ class Pokemon(object):
 
     def appendType(self, type_id):
         assert(int(type_id) in Pokemon.TYPES)
-        self.types.add(int(type_id))
+        self.types.add(Pokemon.TYPES[int(type_id)])
 
     def doDNA(self):
         """generate self.dna from knowed moves"""
@@ -84,7 +84,7 @@ class Pokemon(object):
 # ACCESSORS ###################################################################
 # CONVERSION ##################################################################
     def __str__(self):
-        return self.name + ' (' + ' and '.join([Pokemon.TYPES[t] for t in self.types]) + '): ' + ''.join(self.dna)
+        return self.name + ' (' + ' and '.join(self.types) + '): ' + ''.join(self.dna)
 # OPERATORS ###################################################################
 
 
