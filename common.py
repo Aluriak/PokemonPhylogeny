@@ -16,7 +16,6 @@ import sys
 #########################
 # PRE-DECLARATIONS      #
 #########################
-NB_MOVES = 559
 FILE_POKEMON_DNA = "pokemon_dnas.dat"
 URL_POKEBIP_POKEDEX = "http://www.pokebip.com/pokemon/pokedex/"
 URL_POKEBIP_SEARCH_POKEDEX = 'http://www.pokebip.com/pokedex/index.php?phppage=gen5/liste&poke_tri=1'
@@ -36,7 +35,6 @@ def getHTMLOf(url):
     import urllib
     from urllib import request
     return request.urlopen(request.Request(url)).read()
-
 
 
 
