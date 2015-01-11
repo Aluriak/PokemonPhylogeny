@@ -1,4 +1,7 @@
 # A Pokemon Phylogeny
+
+![logomew2](data/LogoMew2.png)
+
 Generate a DNA for each pokemon, based on moves that can be learn, and use this 0/1 sequence to do alignment and phylogeny !
 In pure Python, parsing of _pokebip.com_ pokedex.
 used modules:
